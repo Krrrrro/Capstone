@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.board.service.impl.BoardMapper">
+	
+
+	<resultMap id="board" type="egovframework.board.service.BoardVO">
+		<result property="id" column="id" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="regdate" column="regdate" />
+		<result property="writer" column="writer" />
+		<result property="views" column="views" />
+		<result property="onlytext" column="onlytext" />
+		<result property="ip" column="ip" />
+		<result property="userid" column="userid" />
+	</resultMap>
+	
+	<insert id="insertBoard">
+		<![CDATA[
+			INSERT INTO board 
+				( id
+				  , subject
+				  , content
+				  , regdate
+				  , writer
+				  , views
+				  , onlytext
+				  , ip
+				  , userid )
+			VALUES ( id
+				  , #{subject}
+				  , #{content}
+				  , NOW()		  
+				  , #{writer}
+				  , 0
+				  , #{onlytext}
+				  , #{ip}
+				  , #{userid} )
+		]]>
+	</insert>
+	
+	<update id="updateBoard">
+		<![CDATA[
+			UPDATE board
+			SET subject=#{subject}
+				, content=#{content}
+				, onlytext=#{onlytext}
+				WHERE id=#{id}
+				]]>
+	</update>
+	
+	<update id="updateViews">
+		<![CDATA[
+			UPDATE board
+			SET views=views + 1
+						WHERE id=#{id}
+				]]>
+	</update>
+	
+	<delete id="deleteBoard">
+		<![CDATA[
+			DELETE FROM board 
+						WHERE id=#{id}
+				]]>
+	</delete>
+	
+	<select id="selectBoard" resultMap="board">
+		<![CDATA[
+			SELECT
+				id
+				, subject
+				, content
+				, regdate
+				, writer
+				, views
+				, ip
+				, onlytext
+				, userid
+			FROM board
+						WHERE id=#{id}
+				]]>
+	</select>
+	
+	<select id="selectBoardList" parameterType="egovframework.board.service.BoardVO" resultType="egovMap">
+			SELECT
+								id
+								, subject
+								, content
+								, regdate
+								, writer
+								, views
+								, onlytext
+								, ip
+					FROM board
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					id = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					subject LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>
+				ORDER BY 
+						id DESC
+					limit #{recordCountPerPage} offset #{firstIndex}	
+	</select>	
+	<select id="selectBoardListTotCnt" parameterType="egovframework.board.service.BoardVO" resultType="int">
+			SELECT COUNT(*) totcnt
+			FROM board
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					id = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					subject LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>			
+	</select>
+
+</mapper>

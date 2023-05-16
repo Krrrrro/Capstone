@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.user.service.impl.UserMapper">
+	
+
+	<resultMap id="user" type="egovframework.user.service.UserVO">
+		<result property="userid" column="userid" />
+		<result property="userpwd" column="userpwd" />
+		<result property="username" column="username" />
+		<result property="useraddress" column="useraddress" />
+	</resultMap>
+	
+	<insert id="insertUser">
+		<![CDATA[
+			INSERT INTO user 
+				( userid
+				  , userpwd
+				  , username
+				  , useraddress )
+			VALUES ( #{userid}
+				  , #{userpwd}
+				  , #{username}
+				  , #{useraddress} )
+		]]>
+	</insert>
+	
+	<update id="updateUser">
+		<![CDATA[
+			UPDATE user
+			SET userpwd=#{userpwd}
+				, username=#{username}
+				, useraddress=#{useraddress}
+				WHERE userid=#{userid}
+			]]>
+	</update>
+	
+	<delete id="deleteUser">
+		<![CDATA[
+			DELETE FROM user 
+			]]>
+	</delete>
+	
+	<select id="selectUser" resultMap="user">
+		<![CDATA[
+			SELECT
+				userid
+				, userpwd
+				, username
+				, useraddress
+			FROM user where userid=#{userid} and userpwd=#{userpwd}
+			]]>
+	</select>
+	
+		<select id="checkId" resultMap="user">
+		<![CDATA[
+			SELECT
+				userid
+				, userpwd
+				, username
+				, useraddress
+			FROM user where userid=#{userid}
+			]]>
+	</select>
+	
+	<select id="selectUserList" parameterType="egovframework.user.service.UserVO" resultType="egovMap">
+			SELECT
+								userid
+								, userpwd
+								, username
+								, useraddress
+					FROM user
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					userid = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					userpwd LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>
+				ORDER BY 
+				limit #{recordCountPerPage} offset #{firstIndex}	
+	</select>	
+	<select id="selectUserListTotCnt" parameterType="egovframework.user.service.UserVO" resultType="int">
+			SELECT COUNT(*) totcnt
+			FROM user
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					userid = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					userpwd LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>			
+	</select>
+
+</mapper>

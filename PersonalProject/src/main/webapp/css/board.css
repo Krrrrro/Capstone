@@ -1,0 +1,283 @@
+* {
+  color: black;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+.header-main {
+  width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar-item > a {
+  display: inline-flex;
+  padding: 23px 30px 22px 30px;
+  font-size: 18px;
+  position: relative;
+  font-weight: 700;
+}
+
+.detail-navbar {
+  top: 60px;
+  border: 1px solid black;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  background-color: white;
+  width: 125px;
+  text-align: left;
+  z-index: 1;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.navbar-item:hover > a {
+  color: rgb(25, 13, 131);
+}
+
+.navbar-item:hover .detail-navbar {
+  display: flex;
+}
+
+.detail-navbar a:hover {
+  color: rgb(25, 13, 131);
+  font-weight: 600;
+}
+
+.detail-navbar > a {
+  display: inline-flex;
+}
+
+.title-link {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-navbar a {
+  display: inline-flex;
+  padding: 2px 0px;
+  padding-left: 35px;
+  font-size: 13px;
+}
+
+/* 여기 까지..... */
+
+.subtitle {
+  background-image: url(/image/sub_top.jpg);
+  height: 150px;
+}
+
+.subtitle-main {
+  width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.subtitle-main h1 {
+  color: white;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.main-content {
+  width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  padding-bottom: 150px;
+}
+
+.menubar {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.menubar > div {
+  /* background-color: #018bc3; */
+  margin: 3px 0;
+  background-color: #d9f0fa;
+}
+
+.menubar a {
+  display: inline-block;
+  padding: 8px 0 8px 20px;
+  width: 200px;
+}
+
+.board-div {
+  margin-top: 50px;
+  width: 900px;
+}
+
+.board-title {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-bottom: 0.5px solid gray;
+}
+
+.board-title h1 {
+  position: relative;
+  font-family: "Noto Sans", NanumGothic, "NanumGothic", "Open Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  padding: 5px 0 30px 0;
+}
+
+.board-title h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #029cda;
+}
+
+.board-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-select {
+  display: flex;
+  padding-top: 30px;
+  justify-content: right;
+}
+
+.board-select a {
+  padding: 10px 20px;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #ccc;
+  font-size: 13px;
+  font-weight: 600;
+  background: -webkit-linear-gradient(top, #fff 0, #ececec 100%);
+  cursor: pointer;
+}
+
+.board-select > a > i {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-bottom: 4px solid #333;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  margin-bottom: 2px;
+  margin-left: 5px;
+}
+
+.board-input {
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+}
+
+fieldset {
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.15);
+  margin: 8px 10px;
+  padding: 5px 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+fieldset input {
+  border: 0;
+  width: 95%;
+  height: 25px;
+  margin: 0 2%;
+}
+
+fieldset button {
+  border: 0px;
+  width: 25px;
+  height: 25px;
+  margin-right: 15px;
+  background-color: transparent;
+  background-image: url(/image/icons.png);
+  background-position: -57px 4px;
+  cursor: pointer;
+}
+
+.board-table table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: gray;
+}
+
+th {
+  border-bottom: 1px solid #aaa;
+  text-align: center;
+  padding: 15px 5px 14px;
+  font-size: 13px;
+  color: #333;
+}
+
+.subject {
+  text-align: left;
+}
+
+td {
+  text-align: center;
+  padding: 12px 5px !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid #ccc;
+}
+.pageindex a {
+  margin: 0 10px;
+}
+
+.selected-page {
+  color: purple;
+  text-decoration: underline;
+}
+
+/* 여기 까지..... */
+.footer {
+  border: 0.5px solid rgb(167, 167, 167);
+  padding: 30px 0px;
+}
+
+.footer-main {
+  width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.footer-content * {
+  padding: 10px;
+  font-size: 12px;
+  color: gray;
+}
+
+.footer-text {
+  letter-spacing: 1px;
+}

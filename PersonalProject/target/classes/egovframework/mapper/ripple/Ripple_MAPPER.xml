@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.ripple.service.impl.RippleMapper">
+	
+
+	<resultMap id="ripple" type="egovframework.ripple.service.RippleVO">
+		<result property="id" column="id" />
+		<result property="content" column="content" />
+		<result property="regdate" column="regdate" />
+		<result property="writer" column="writer" />
+		<result property="ref" column="ref" />
+		<result property="reStep" column="re_step" />
+		<result property="reLevel" column="re_level" />
+		<result property="boardId" column="board_id" />
+	</resultMap>
+	
+	<insert id="insertRipple">
+		<![CDATA[
+			INSERT INTO ripple 
+				( id
+				  , content
+				  , regdate
+				  , writer
+				  , ref
+				  , re_step
+				  , re_level
+				  , board_id )
+			VALUES ( id
+				  , #{content}
+				  , NOW()
+				  , #{writer}
+				  , (SELECT MAX(R.ref +1) FROM ripple R where R.board_id = #{boardId})
+				  , 0
+				  , 0
+				  , #{boardId} )
+		]]>
+	</insert>
+	
+	<update id="updateRipple">
+		<![CDATA[
+			UPDATE ripple
+			SET id=#{id}
+				, content=#{content}
+				, regdate=#{regdate}
+				, writer=#{writer}
+				, ref=#{ref}
+				, re_step=#{reStep}
+				, re_level=#{reLevel}
+			]]>
+	</update>
+	
+	<delete id="deleteRipple">
+		<![CDATA[
+			DELETE FROM ripple 
+			]]>
+	</delete>
+	
+	<select id="selectRipple" resultMap="ripple">
+		<![CDATA[
+			SELECT
+				id
+				, content
+				, regdate
+				, writer
+				, ref
+				, re_step
+				, re_level
+			FROM ripple
+			]]>
+	</select>
+	
+	<select id="selectRippleList" parameterType="egovframework.ripple.service.RippleVO" resultType="egovframework.ripple.service.RippleVO">
+			SELECT
+								id
+								, content
+								, regdate
+								, writer
+								, ref
+								, re_step
+								, re_level
+					FROM ripple
+			WHERE board_id = #{boardId}
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					id = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					content LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>
+				ORDER BY ref
+				limit #{recordCountPerPage} offset #{firstIndex}	
+	</select>	
+	<select id="selectRippleListTotCnt" parameterType="egovframework.ripple.service.RippleVO" resultType="int">
+			SELECT COUNT(*) totcnt
+			FROM ripple
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					id = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					content LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>			
+	</select>
+
+</mapper>
