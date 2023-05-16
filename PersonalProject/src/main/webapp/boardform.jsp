@@ -14,7 +14,7 @@
 	<div class="board-table">
                 <table>
                   <thead>
-                    <th>번호</th>
+                    <th>번호121212121212</th>
                     <th>제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
